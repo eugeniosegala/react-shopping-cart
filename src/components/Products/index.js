@@ -28,14 +28,14 @@ const isFavorite = (object) => {
   return message;
 };
 
-const products = ({
-  product,
-  arrayOfProduct,
+const Products = ({
+  products,
+  arrayOfProducts,
   pushToLocal,
   removeProductToLocal,
 }) => (
   <React.Fragment>
-    {product.map((elm, index) => (
+    {products.map((elm, index) => (
       <SingleProduct key={index}>
         <img width="100%" alt={elm.image} src={elm.image} />
         <ProductDetail>
@@ -46,12 +46,12 @@ const products = ({
             {`€ ${elm.price}`}
           </ProductPrice>
           {!removeProductToLocal &&
-            <ProductButton onClick={() => checkProductToLocal(elm, arrayOfProduct, pushToLocal)}>
+            <ProductButton onClick={() => checkProductToLocal(elm, arrayOfProducts, pushToLocal)}>
               {isFavorite(elm, index)}
             </ProductButton>
           }
           {removeProductToLocal &&
-            <ProductButton onClick={() => removeProductToLocal(elm, product)}>
+            <ProductButton onClick={() => removeProductToLocal(elm, products)}>
               Remove
             </ProductButton>
           }
@@ -61,11 +61,11 @@ const products = ({
   </React.Fragment>
 );
 
-products.propTypes = {
-  product: PropTypes.array,
-  arrayOfProduct: PropTypes.array,
+Products.propTypes = {
+  products: PropTypes.array,
+  arrayOfProducts: PropTypes.array,
   pushToLocal: PropTypes.func,
   removeProductToLocal: PropTypes.func,
 };
 
-export default products;
+export default Products;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Products from '../Products';
+import Home from '../Home';
 import Cart from '../Cart';
 import { PageWrapper } from './styles';
 
@@ -8,7 +8,7 @@ class Main extends Component {
   constructor() {
     super();
     this.state = {
-      product: [
+      products: [
         {
           id: 1,
           name: 'Backpack',
@@ -40,28 +40,28 @@ class Main extends Component {
           image: 'https://image.ibb.co/bRpoz9/glasses.png',
         },
       ],
-      arrayOfProduct: JSON.parse(localStorage.getItem('products')) || [],
+      arrayOfProducts: JSON.parse(localStorage.getItem('products')) || [],
     };
   }
 
   pushProductToLocal = (object, array) => {
     array.push(object);
     localStorage.setItem('products', JSON.stringify(array));
-    this.setState({ arrayOfProduct: array });
+    this.setState({ arrayOfProducts: array });
   };
 
-  removeProductToLocal = (object, arrayOfProduct) => {
-    this.setState({ arrayOfProduct: arrayOfProduct.filter(e => e !== object) });
-    localStorage.setItem('products', JSON.stringify(arrayOfProduct.filter(e => e !== object)));
+  removeProductToLocal = (object, arrayOfProducts) => {
+    this.setState({ arrayOfProducts: arrayOfProducts.filter(e => e !== object) });
+    localStorage.setItem('products', JSON.stringify(arrayOfProducts.filter(e => e !== object)));
   };
 
   render() {
-    const { product, arrayOfProduct } = this.state;
+    const { products, arrayOfProducts } = this.state;
     return (
       <PageWrapper>
         <Switch>
-          <Route path="/" exact component={() => <Products product={product} arrayOfProduct={arrayOfProduct} pushToLocal={this.pushProductToLocal} />} />
-          <Route path="/cart/" exact component={() => <Cart arrayOfProduct={arrayOfProduct} removeProductToLocal={this.removeProductToLocal} />} />
+          <Route path="/" exact component={() => <Home products={products} arrayOfProducts={arrayOfProducts} pushToLocal={this.pushProductToLocal} />} />
+          <Route path="/cart/" exact component={() => <Cart arrayOfProducts={arrayOfProducts} removeProductToLocal={this.removeProductToLocal} />} />
         </Switch>
       </PageWrapper>
     );

@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MainContainer } from './styles';
-import Product from '../../components/Product';
+import Products from '../../components/Products';
 
-const cart = ({ arrayOfProduct, removeProductToLocal }) => (
+const cart = ({ arrayOfProducts, removeProductToLocal }) => (
   <MainContainer>
-    {arrayOfProduct.length > 0 ?
-      <Product product={arrayOfProduct} removeProductToLocal={removeProductToLocal} /> : <span>Cart is Empty</span>
-    }
+    {arrayOfProducts.length > 0 ? <Products products={arrayOfProducts} removeProductToLocal={removeProductToLocal} /> : <span>Cart is Empty</span> }
   </MainContainer>
 );
 
 cart.propTypes = {
-  arrayOfProduct: PropTypes.any,
+  arrayOfProducts: PropTypes.any,
   removeProductToLocal: PropTypes.func,
 };
 
