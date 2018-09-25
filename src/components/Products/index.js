@@ -10,17 +10,17 @@ import {
 } from './styles';
 import Cart from '../../assets/img/cart.svg';
 
-const checkProductToLocal = (object, array, func) => {
+const checkProductToLocal = (elm, arrayOfProducts, pushToLocal) => {
   if (!localStorage.getItem('products')) {
-    func(object, array);
-  } else if (!JSON.parse(localStorage.getItem('products')).find(e => e.id === object.id)) {
-    func(object, array);
+    pushToLocal(elm, arrayOfProducts);
+  } else if (!JSON.parse(localStorage.getItem('products')).find(e => e.id === elm.id)) {
+    pushToLocal(elm, arrayOfProducts);
   }
 };
 
-const isFavorite = (object) => {
+const isFavorite = (elm) => {
   let message = '';
-  if (localStorage.getItem('products') && JSON.parse(localStorage.getItem('products')).find(e => e.id === object.id)) {
+  if (localStorage.getItem('products') && JSON.parse(localStorage.getItem('products')).find(e => e.id === elm.id)) {
     message = <CartIcon alt="cart" src={Cart} />;
   } else {
     message = 'Add';
@@ -47,7 +47,7 @@ const Products = ({
           </ProductPrice>
           {!removeProductToLocal &&
             <ProductButton onClick={() => checkProductToLocal(elm, arrayOfProducts, pushToLocal)}>
-              {isFavorite(elm, index)}
+              {isFavorite(elm)}
             </ProductButton>
           }
           {removeProductToLocal &&
